@@ -1,4 +1,4 @@
-const postingkey = ""
+const postingkey = "5Kib"
 const TAGS = ['ru--apvot50-50']
 const REBLOGGER = "upvote50-50"
 const accountfilter = "upvote50-50"
@@ -248,7 +248,10 @@ const checkVoteQueue = () => {
                 }]
             )
             golos.broadcast.customJson(postingkey, [], [REBLOGGER], "follow", json, (err, result) => {
-                if (err) return
+                if (err) {
+                    voteQueue.splice(i,1)
+                    return
+                }
                 // После того, как мы сделали репост, отправим комментарий пользователю и проголосуем за его пост
                 // Но здесь проблема, если делать реблоги мы можем сотням аккаунтов в секунду, то оставлять комментарии, не более раза в 20 секунд. 
                 // Таким образом нам нужно задать острочку в 20 секунд для каждого комментария
@@ -268,7 +271,11 @@ const checkVoteQueue = () => {
                         TITLE,
                         COMMENT,
                         jsonMetadata, (err, result) => {
-                            if (err) return console.log(`\x1b[31m☹️ Невозможно отправить комменатарий к посту [${item.title}]\x1b[0m`)
+                            if (err) {
+                                console.log(`\x1b[31m☹️ Невозможно отправить комменатарий к посту [${item.title}]\x1b[0m`)
+                                voteQueue.splice(i,1)
+                                return
+                            }
                             console.log(`\x1b[96m💬 [Отправлен комментарий и upvote][${item.author}] ${item.title}\x1b[0m`)
                             golos.broadcast.vote(postingkey, REBLOGGER, item.author, item.permlink, VOTEPOWER, (error, result) => {
                                 //console.log(error,result)
