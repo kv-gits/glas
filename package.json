@@ -1,0 +1,22 @@
+{
+  "title": "glas",
+  "name": "glas",
+  "version": "0.0.1",
+  "description": "Autoreblog, based on some Vikxx ideas",
+  "main": "stream.js",
+  "author": "kvg",
+  "dependencies": {
+    "golos-js": "^0.5.28",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.5.6"
+  },
+  "license": "ISC",
+  "keywords": [
+    "golos"
+  ]
+}
