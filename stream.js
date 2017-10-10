@@ -5,7 +5,8 @@ const accountfilter = "upvote50-50"
 const COMMENT = `**${REBLOGGER} сделал реблог :)**`
 const TITLE = "Реблог upvote50-50"
 const VOTEPOWER = 4000
-const GOLOSNODE = "wss://ws.golos.io"
+// const GOLOSNODE = "wss://ws.golos.io"
+const GOLOSNODE = "wss://ws.upvote50-50.xyz"
 
 //
 // \x1b[0m - белый
@@ -19,6 +20,7 @@ golos.config.set('websocket', GOLOSNODE)
 // get all Followings
 var authors_wl = []
 function getAccountFollowings(){
+    authors_wl = []
     golos.api.getFollowCount(accountfilter, (err, count) => {
         console.log(`\x1b[92m Количество подписок ${JSON.stringify(count)} \x1b[0m`)
         if (err) return console.warn(err)
@@ -170,6 +172,10 @@ const startFetchingBlocks = () => {
     timer_vote = setInterval(()=>{
         checkVoteQueue()
     }, 20000)
+
+    timer_follow = setInterval( () =>{
+        getAccountFollowings()
+    }, 3600000)
 }
 
 //-----------------------------------------------------------------------------
